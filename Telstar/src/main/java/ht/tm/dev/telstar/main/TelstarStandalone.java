@@ -5,13 +5,9 @@ import ht.tm.dev.telstar.connector.TelstarConnector;
 
 import java.io.IOException;
 
-import org.apache.log4j.BasicConfigurator;
-
 public class TelstarStandalone {
 
 	public static void main(String[] args) throws IOException {
-
-		BasicConfigurator.configure();
 
 		String host = "whois.nic.uk";
 		int port = 43;

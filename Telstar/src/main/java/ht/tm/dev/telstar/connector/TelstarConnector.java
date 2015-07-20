@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ch.mather.quicklogger.impl.Logger;
+import ch.mather.quicklogger.impl.LoggerFactory;
 
 public class TelstarConnector {
-	
+
 	private Logger log;
 	private String host;
 	private int port;
@@ -18,7 +18,7 @@ public class TelstarConnector {
 		this.host = host;
 		this.port = port;
 		connection = new Socket();
-		log = LoggerFactory.getLogger(TelstarConnector.class);
+		log = LoggerFactory.getLogger(this);
 	}
 
 	public boolean establishConnection() {
@@ -27,8 +27,7 @@ public class TelstarConnector {
 			log.info("Connected to: " + host + ":" + port);
 			return true;
 		} catch (IOException e) {
-			log.error("Cannot Connect to " + host + ":" + port);
-			e.printStackTrace();
+			log.error("Cannot Connect to " + host + ":" + port, e);
 			return false;
 		}
 	}
@@ -57,8 +56,7 @@ public class TelstarConnector {
 		try {
 			connection.close();
 		} catch (IOException e) {
-			log.error("could not close connection");
-			e.printStackTrace();
+			log.error("could not close connection", e);
 		}
 	}
 
