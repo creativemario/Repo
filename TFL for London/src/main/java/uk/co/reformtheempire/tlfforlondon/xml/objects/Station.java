@@ -1,5 +1,9 @@
 package uk.co.reformtheempire.tlfforlondon.xml.objects;
 
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.util.Date;
+
 import org.jdom2.Element;
 
 import ch.mather.quicklogger.impl.Logger;
@@ -14,15 +18,15 @@ public class Station {
 	private double longitude;
 	private boolean installed;
 	private boolean locked;
-	private long installDate;
-	private long removalDate;
+	private Date installDate;
+	private Date removalDate;
 	private boolean temporary;
 	private int numberOfBikes;
 	private int numberOfEmptyDocks;
 	private int numberOfDocks;
 
 	private Logger LOG;
-	
+
 	public Station(int id, String name, long terminalName, double latitude, double longitude, boolean installed, boolean locked, long installDate, long removalDate, boolean temporary, int numberOfBikes, int numberOfEmptyDocks, int numberOfDocks) {
 		LOG = LoggerFactory.getLogger(this);
 		this.id = id;
@@ -32,8 +36,16 @@ public class Station {
 		this.longitude = longitude;
 		this.installed = installed;
 		this.locked = locked;
-		this.installDate = installDate;
-		this.removalDate = removalDate;
+		try {
+			this.installDate = new Date(installDate);
+		} catch (NumberFormatException e) {
+			LOG.error("Could not pass install date", e);
+		}
+		try {
+			this.removalDate = new Date(removalDate);
+		} catch (NumberFormatException e) {
+			LOG.error("Could not pass removal date", e);
+		}
 		this.temporary = temporary;
 		this.numberOfBikes = numberOfBikes;
 		this.numberOfEmptyDocks = numberOfEmptyDocks;
@@ -45,23 +57,22 @@ public class Station {
 		this.id = Integer.parseInt(stationElement.getChildText("id"));
 		this.name = stationElement.getChildText("name");
 		this.terminalName = Long.parseLong(stationElement.getChildText("terminalName"));
-		this.latitude =  Double.parseDouble(stationElement.getChildText("lat"));
+		this.latitude = Double.parseDouble(stationElement.getChildText("lat"));
 		this.longitude = Double.parseDouble(stationElement.getChildText("long"));
 		this.installed = Boolean.parseBoolean(stationElement.getChildText("installed"));
 		this.locked = Boolean.parseBoolean(stationElement.getChildText("locked"));
-		
-		try{
-			this.installDate =  Long.parseLong(stationElement.getChildText("installDate"));
-		}catch (NumberFormatException e){
-			LOG.error("No Install Date", e);
+
+		try {
+			this.installDate = new Date(Long.parseLong(stationElement.getChildText("installDate")));
+		} catch (NumberFormatException e) {
+			LOG.error("Could not pass install date", e);
 		}
-		
-		try{
-			this.removalDate =  Long.parseLong(stationElement.getChildText("removalDate"));			
-		}catch (NumberFormatException e){
-			LOG.error("No Removal Date", e);
+		try {
+			this.removalDate = new Date(Long.parseLong(stationElement.getChildText("removalDate")));
+		} catch (NumberFormatException e) {
+			LOG.error("Could not pass removal date", e);
 		}
-		
+
 		this.temporary = Boolean.parseBoolean(stationElement.getChildText("temporary"));
 		this.numberOfBikes = Integer.parseInt(stationElement.getChildText("nbBikes"));
 		this.numberOfEmptyDocks = Integer.parseInt(stationElement.getChildText("nbEmptyDocks"));
@@ -96,11 +107,11 @@ public class Station {
 		return locked;
 	}
 
-	public long getInstallDate() {
+	public Date getInstallDate() {
 		return installDate;
 	}
 
-	public long getRemovalDate() {
+	public Date getRemovalDate() {
 		return removalDate;
 	}
 
@@ -121,10 +132,8 @@ public class Station {
 	}
 
 	@Override
-    public String toString() {
-	    return "Station [id=" + id + ", name=" + name + ", terminalName=" + terminalName + ", latitude=" + latitude + ", longitude=" + longitude + ", installed=" + installed + ", locked=" + locked + ", installDate=" + installDate + ", removalDate=" + removalDate + ", temporary=" + temporary + ", numberOfBikes=" + numberOfBikes + ", numberOfEmptyDocks=" + numberOfEmptyDocks + ", numberOfDocks=" + numberOfDocks + "]";
-    }
+	public String toString() {
+		return "Station [id=" + id + ", name=" + name + ", terminalName=" + terminalName + ", latitude=" + latitude + ", longitude=" + longitude + ", installed=" + installed + ", locked=" + locked + ", installDate=" + installDate + ", removalDate=" + removalDate + ", temporary=" + temporary + ", numberOfBikes=" + numberOfBikes + ", numberOfEmptyDocks=" + numberOfEmptyDocks + ", numberOfDocks=" + numberOfDocks + "]";
+	}
 
-	
-	
 }
