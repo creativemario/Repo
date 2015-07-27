@@ -16,71 +16,71 @@ public class Station {
 	private int numberOfEmptyDocks;
 	private int numberOfDocks;
 
-	public Station(int stationIdentity, String stationName, long stationTerminalName, float stationLatitude, float stationLongitude, boolean stationInstalled, boolean stationLocked, long stationInstallDate, long stationRemovalDate, boolean stationTemporaryStatus, int stationNumberOfBikes, int stationNumberOfEmptyDocks, int stationNumberOfDocks) {
-		id = stationIdentity;
-		name = stationName;
-		terminalName = stationTerminalName;
-		latitude = stationLatitude;
-		longitude = stationLongitude;
-		installed = stationInstalled;
-		locked = stationLocked;
-		installDate = stationInstallDate;
-		removalDate = stationRemovalDate;
-		temporaryStatus = stationTemporaryStatus;
-		numberOfBikes = stationNumberOfBikes;
-		numberOfEmptyDocks = stationNumberOfEmptyDocks;
-		numberOfDocks = stationNumberOfDocks;
+	public Station(int id, String name, long terminalName, float latitude, float longitude, boolean installed, boolean locked, long installDate, long removalDate, boolean temporaryStatus, int numberOfBikes, int numberOfEmptyDocks, int numberOfDocks) {
+		this.id = id;
+		this.name = name;
+		this.terminalName = terminalName;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.installed = installed;
+		this.locked = locked;
+		this.installDate = installDate;
+		this.removalDate = removalDate;
+		this.temporaryStatus = temporaryStatus;
+		this.numberOfBikes = numberOfBikes;
+		this.numberOfEmptyDocks = numberOfEmptyDocks;
+		this.numberOfDocks = numberOfDocks;
 	}
 
-	public int getStationIdentity() {
+	public int getId() {
 		return id;
 	}
 
-	public String getStationName() {
+	public String getName() {
 		return name;
 	}
 
-	public long getStationTerminalName() {
+	public long getTerminalName() {
 		return terminalName;
 	}
 
-	public float getStationLatitude() {
+	public float getLatitude() {
 		return latitude;
 	}
 
-	public float getStationLongitude() {
+	public float getLongitude() {
 		return longitude;
 	}
 
-	public boolean isStationInstalled() {
+	public boolean isInstalled() {
 		return installed;
 	}
 
-	public boolean isStationLocked() {
+	public boolean isLocked() {
 		return locked;
 	}
 
-	public long getStationInstallDate() {
+	public long getInstallDate() {
 		return installDate;
 	}
 
-	public long getStationRemovalDate() {
+	public long getRemovalDate() {
 		return removalDate;
 	}
 
-	public boolean isStationTemporaryStatus() {
+	public boolean isTemporaryStatus() {
 		return temporaryStatus;
 	}
 
-	public int getStationNumberOfBikes() {
+	public int getNumberOfBikes() {
 		return numberOfBikes;
 	}
 
-	public int getStationNumberOfEmptyDocks() {
+	public int getNumberOfEmptyDocks() {
 		return numberOfEmptyDocks;
 	}
 
-	public int getStationNumberOfDocks() {
+	public int getNumberOfDocks() {
 		return numberOfDocks;
 	}
 
