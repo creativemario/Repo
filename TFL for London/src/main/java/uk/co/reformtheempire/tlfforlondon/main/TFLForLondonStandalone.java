@@ -21,9 +21,12 @@ public class TFLForLondonStandalone {
 		Logger LOG = LoggerFactory.getLogger(this);
 		
 		Parser parser = new Parser();
+		long startTime = System.nanoTime();
 		ArrayList<Station> stations = parser.parse();
+		long endTime = System.nanoTime();
 		for (Station station : stations) {
 	        LOG.debug(station.toString());
         }
+		LOG.debug("Time taken: " + (endTime - startTime)/1000000 + " ms");
 	}
 }
