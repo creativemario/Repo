@@ -1,22 +1,24 @@
 package uk.co.reformtheempire.tlfforlondon.xml.objects;
 
+import org.jdom2.Element;
+
 public class Station {
 
 	private int id;
 	private String name;
 	private long terminalName;
-	private float latitude;
-	private float longitude;
+	private double latitude;
+	private double longitude;
 	private boolean installed;
 	private boolean locked;
 	private long installDate;
 	private long removalDate;
-	private boolean temporaryStatus;
+	private boolean temporary;
 	private int numberOfBikes;
 	private int numberOfEmptyDocks;
 	private int numberOfDocks;
 
-	public Station(int id, String name, long terminalName, float latitude, float longitude, boolean installed, boolean locked, long installDate, long removalDate, boolean temporaryStatus, int numberOfBikes, int numberOfEmptyDocks, int numberOfDocks) {
+	public Station(int id, String name, long terminalName, double latitude, double longitude, boolean installed, boolean locked, long installDate, long removalDate, boolean temporary, int numberOfBikes, int numberOfEmptyDocks, int numberOfDocks) {
 		this.id = id;
 		this.name = name;
 		this.terminalName = terminalName;
@@ -26,10 +28,30 @@ public class Station {
 		this.locked = locked;
 		this.installDate = installDate;
 		this.removalDate = removalDate;
-		this.temporaryStatus = temporaryStatus;
+		this.temporary = temporary;
 		this.numberOfBikes = numberOfBikes;
 		this.numberOfEmptyDocks = numberOfEmptyDocks;
 		this.numberOfDocks = numberOfDocks;
+	}
+
+	public Station(Element stationElement) {
+		this.id = Integer.parseInt(stationElement.getChildText("id"));
+		this.name = stationElement.getChildText("name");
+		this.terminalName = Long.parseLong(stationElement.getChildText("terminalName"));
+		this.latitude =  Double.parseDouble(stationElement.getChildText("lat"));
+		this.longitude = Double.parseDouble(stationElement.getChildText("long"));
+		this.installed = Boolean.parseBoolean(stationElement.getChildText("installed"));
+		this.locked = Boolean.parseBoolean(stationElement.getChildText("locked"));
+		try{
+			this.installDate =  Long.parseLong(stationElement.getChildText("installDate"));
+			this.removalDate =  Long.parseLong(stationElement.getChildText("removalDate"));			
+		}catch (NumberFormatException e){
+			
+		}
+		this.temporary = Boolean.parseBoolean(stationElement.getChildText("temporary"));
+		this.numberOfBikes = Integer.parseInt(stationElement.getChildText("nbBikes"));
+		this.numberOfEmptyDocks = Integer.parseInt(stationElement.getChildText("nbEmptyDocks"));
+		this.numberOfDocks = Integer.parseInt(stationElement.getChildText("nbDocks"));
 	}
 
 	public int getId() {
@@ -44,11 +66,11 @@ public class Station {
 		return terminalName;
 	}
 
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
@@ -69,7 +91,7 @@ public class Station {
 	}
 
 	public boolean isTemporaryStatus() {
-		return temporaryStatus;
+		return temporary;
 	}
 
 	public int getNumberOfBikes() {
@@ -84,4 +106,11 @@ public class Station {
 		return numberOfDocks;
 	}
 
+	@Override
+    public String toString() {
+	    return "Station [id=" + id + ", name=" + name + ", terminalName=" + terminalName + ", latitude=" + latitude + ", longitude=" + longitude + ", installed=" + installed + ", locked=" + locked + ", installDate=" + installDate + ", removalDate=" + removalDate + ", temporary=" + temporary + ", numberOfBikes=" + numberOfBikes + ", numberOfEmptyDocks=" + numberOfEmptyDocks + ", numberOfDocks=" + numberOfDocks + "]";
+    }
+
+	
+	
 }
