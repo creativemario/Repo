@@ -1,6 +1,5 @@
 package uk.co.reformtheempire.tlfforlondon.main;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import uk.co.reformtheempire.tlfforlondon.reader.Parser;
