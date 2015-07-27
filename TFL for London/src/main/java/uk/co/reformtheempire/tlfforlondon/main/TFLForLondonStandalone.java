@@ -24,9 +24,13 @@ public class TFLForLondonStandalone {
 		long startTime = System.nanoTime();
 		ArrayList<Station> stations = parser.parse();
 		long endTime = System.nanoTime();
+		long startPrintTime = System.nanoTime();
 		for (Station station : stations) {
 	        LOG.debug(station.toString());
         }
-		LOG.debug("Time taken: " + (endTime - startTime)/1000000 + " ms");
+		long endPrintTime = System.nanoTime();
+		LOG.debug("Time taken to Import: " + (endTime - startTime)/1000000 + " ms");
+		LOG.debug("Time taken to Print: " + (endPrintTime - startPrintTime)/1000000 + " ms");
+		LOG.debug("Total Time Wasted: " + ((endPrintTime - startPrintTime)+(endTime - startTime))/1000000 + " ms");
 	}
 }
