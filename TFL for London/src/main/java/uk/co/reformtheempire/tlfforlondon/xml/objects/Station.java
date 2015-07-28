@@ -1,7 +1,5 @@
 package uk.co.reformtheempire.tlfforlondon.xml.objects;
 
-import java.sql.Timestamp;
-import java.text.NumberFormat;
 import java.util.Date;
 
 import org.jdom2.Element;
@@ -11,21 +9,21 @@ import ch.mather.quicklogger.impl.LoggerFactory;
 
 public class Station {
 
-	private int id;
-	private String name;
-	private long terminalName;
-	private double latitude;
-	private double longitude;
-	private boolean installed;
-	private boolean locked;
+	private final int id;
+	private final String name;
+	private final long terminalName;
+	private final double latitude;
+	private final double longitude;
+	private final boolean installed;
+	private final boolean locked;
 	private Date installDate;
 	private Date removalDate;
-	private boolean temporary;
-	private int numberOfBikes;
-	private int numberOfEmptyDocks;
-	private int numberOfDocks;
+	private final boolean temporary;
+	private final int numberOfBikes;
+	private final int numberOfEmptyDocks;
+	private final int numberOfDocks;
 
-	private Logger LOG;
+	private final Logger LOG;
 
 	public Station(int id, String name, long terminalName, double latitude, double longitude, boolean installed, boolean locked, long installDate, long removalDate, boolean temporary, int numberOfBikes, int numberOfEmptyDocks, int numberOfDocks) {
 		LOG = LoggerFactory.getLogger(this);
@@ -38,18 +36,22 @@ public class Station {
 		this.locked = locked;
 		try {
 			this.installDate = new Date(installDate);
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			LOG.error("Could not pass install date", e);
 		}
 		try {
 			this.removalDate = new Date(removalDate);
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			LOG.error("Could not pass removal date", e);
 		}
 		this.temporary = temporary;
 		this.numberOfBikes = numberOfBikes;
 		this.numberOfEmptyDocks = numberOfEmptyDocks;
 		this.numberOfDocks = numberOfDocks;
+	}
+
+	public boolean isTemporary() {
+		return temporary;
 	}
 
 	public Station(Element stationElement) {
@@ -64,12 +66,14 @@ public class Station {
 
 		try {
 			this.installDate = new Date(Long.parseLong(stationElement.getChildText("installDate")));
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
+			installDate = new Date();
 			LOG.error("Could not pass install date", e);
 		}
 		try {
 			this.removalDate = new Date(Long.parseLong(stationElement.getChildText("removalDate")));
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
+			removalDate = new Date();
 			LOG.error("Could not pass removal date", e);
 		}
 
