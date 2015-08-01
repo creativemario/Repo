@@ -15,18 +15,18 @@ import ch.mather.quicklogger.api.LoggerIF;
 
 public class Logger implements LoggerIF {
 
-	private String className;
+	private final String className;
 
 	private BufferedWriter out;
 
-	final static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	final static private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	public Logger(String className) {
 		super();
 		this.className = className;
 		try {
 			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(FileDescriptor.out), "ASCII"), 512);
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			error("COULD NOT INSTANTIATE CORRECTLY", e);
 		}
 	}
@@ -46,7 +46,7 @@ public class Logger implements LoggerIF {
 
 			out.flush();
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			error("COULD NOT LOG INFO", e);
 		}
 	}
@@ -66,7 +66,7 @@ public class Logger implements LoggerIF {
 
 			out.flush();
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			error("COULD NOT LOG DEBUG", e);
 		}
 	}
@@ -86,7 +86,7 @@ public class Logger implements LoggerIF {
 
 			out.flush();
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			error("COULD NOT LOG ERROR", e);
 		}
 	}
@@ -110,12 +110,12 @@ public class Logger implements LoggerIF {
 				out.write("\n");
 
 				out.write(ExceptionUtils.getStackTrace(e));
-				
+
 				out.write('\n');
 
 				out.flush();
 
-			} catch (IOException err) {
+			} catch (final IOException err) {
 				error("COULD NOT LOG ERROR", err);
 			}
 		}
